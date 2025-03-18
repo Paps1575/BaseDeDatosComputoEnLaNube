@@ -354,3 +354,41 @@ db.libros.find({editorial:{$type:'string'}})
  - En local:
     comando:
         mongoimport --db curso --collection empleados --file empleados.json
+
+# Modificando Documents
+## Comnados importantes
+1. updateOne -> Modificar un solo documento
+2. updateMany -> Modificar multiples documentos
+3. replaceOne -> Sustituir el contenido completo de un documento
+
+Tiene el siguiente formato
+
+```json
+db.collection.updateOne(
+{filtro},
+{operador}
+)
+```
+[Operadores update](https://www.mongodb.com/docs/manual/reference/operator/update/)
+
+### Operador set
+1. Modificar un documento
+```json
+ db.libros.updateOne({titulo:'Python para todos'},{$set:{titulo:'Java para todos'}})
+```
+2. Actualizar el precio 100 y la cantidad a 50 para el _id:10
+
+```json
+db.libros.updateOne({_id:10},{$set:{precio:100, cantidad:50}})
+```
+
+### MOdificar multiples documentos
+-- Modificar todos los documentos donde el precio sea mayor a 100 a un precio de 150
+```json
+db.libros.updateMany(
+{precio:{$gt:100}},
+{$set:{precio:150}}
+)
+```
+
+2. Operador $inc y $mul
